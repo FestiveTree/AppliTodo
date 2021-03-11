@@ -37,6 +37,18 @@ export function load({ commit }) {
 	
 }
 
-export function updateTodoList({ commit }, data) {
-	commit("updateTodoList", data);
+export function createTodoList({ commit }, data) { // data={name}
+	commit("createTodoList", data);
+}
+
+export function createTodo({ commit }, data) { // data={id,name}
+	commit("createTodo", data);
+}
+
+export function completeTodo({ commit }, data) { // data={id,idTodo}
+	commit("completeTodo", data);
+}
+
+export function updateTodo({ commit }, data) { // data={id,todo}
+	commit("updateTodo", data);
 }
