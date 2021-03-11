@@ -57,10 +57,15 @@ export function completeTodo(state, data) { // data={id,idTodo}
 	todo.completed = true;
 }
 
-export function updateTodo(state, data) { // data={id,todo}
+export function updateTodo(state, data) { // data={id,idTodo}
 	const todoList = state.todoLists.find(todoList => todoList.id === data.id);
-	const todo = todoList.find(todo => todo.id === data.todo.id);
+	const todo = todoList.find(todo => todo.id === data.idTodo);
 	
 	todo.name = data.todo.name;
 	todo.completed = data.todo.completed;
+}
+
+export function deleteTodo(state, data) { // data={id,idTodo}
+	const todoList = state.todoLists.find(todoList => todoList.id === data.id);
+	todoList.todos = todoList.todos.filter((todo) => todo.id != data.idTodo);
 }

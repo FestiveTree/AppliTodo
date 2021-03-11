@@ -49,6 +49,10 @@ export function completeTodo({ commit }, data) { // data={id,idTodo}
 	commit("completeTodo", data);
 }
 
-export function updateTodo({ commit }, data) { // data={id,todo}
+export function updateTodo({ commit }, data) { // data={id,idTodo}
 	commit("updateTodo", data);
+}
+
+export function deleteTodo({ commit }, data) { // data={id,idTodo}
+	commit("deleteTodo", data);
 }
