@@ -41,6 +41,10 @@ export function createTodoList({ commit }, data) { // data={name}
 	commit("createTodoList", data);
 }
 
+export function deleteTodoList({ commit }, data) { // data={id}
+	commit("deleteTodoList", data);
+}
+
 export function createTodo({ commit }, data) { // data={id,name}
 	commit("createTodo", data);
 }

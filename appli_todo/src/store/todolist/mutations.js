@@ -25,6 +25,10 @@ export function createTodoList(state, data) { // data={name}
 	);
 }
 
+export function deleteTodoList(state, data) { // data={id}
+	state.todoLists = state.todoLists.filter((todoList) => todoList.id != data.id);
+}
+
 export function createTodo(state, data) { // data={id,name}
 	const todoList = state.todoLists.find(todoList => todoList.id === data.id);
 	
