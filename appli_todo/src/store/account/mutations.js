@@ -16,5 +16,7 @@ export function login(state, data) { // data={email, password}
 
 export function logout(state, data) { // data={}
 	data == data;
-	state.account = null;
+	state.account.name = "";
+	state.account.email = "";
+	state.account.token = "";
 }
