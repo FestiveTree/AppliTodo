@@ -1,21 +1,39 @@
-export function load({ commit }) {
-	
-	commit("load", {
-		"name": "user1",
-		"email": "user1@user1.com",
-		"token": ""
-	});
-	
+export function register({ commit }, data) {
+    commit("register", data);
 }
 
-export function signup({ commit }, data) { // data={name, email, password}
-	commit("signup", data);
+export function login({ commit }, data) {
+    commit("login", data);
 }
 
-export function login({ commit }, data) { // data={email, password}
-	commit("login", data);
+export function getUser({ commit }) {
+    commit("getUser");
 }
 
-export function logout({ commit }, data) { // data={}
-	commit("logout", data);
+export function getTodos({ commit }) {
+    commit("getTodos");
+}
+
+export function createTodoList({ commit }, data) {
+    commit("createTodoList", data);
+}
+
+export function deleteTodoList({ commit }, data) {
+    commit("deleteTodoList", data);
+}
+
+export function createTodo({ commit }, data) {
+    commit("createTodo", data);
+}
+
+export function deleteTodo({ commit }, data) {
+    commit("deleteTodo", data);
+}
+
+export function completeTodo({ commit }, data) {
+    commit("completeTodo", data);
+}
+
+export function modifyTodo({ commit }, data) {
+    commit("modifyTodo", data);
 }
