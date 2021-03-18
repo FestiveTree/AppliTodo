@@ -168,7 +168,10 @@ export default {
         { 
           email: 'TestAPI' + this.testid + '@monmail.fr.nf', 
           password: 'Toto1234##',
-          callback: this.getTodos
+          callback: () => {
+            this.getTodos();
+            this.getUser();
+          }
         }
       );
     },
