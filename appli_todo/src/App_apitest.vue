@@ -167,7 +167,8 @@ export default {
       this.login(
         { 
           email: 'TestAPI' + this.testid + '@monmail.fr.nf', 
-          password: 'Toto1234##'
+          password: 'Toto1234##',
+          callback: this.getTodos
         }
       );
     },
@@ -176,7 +177,8 @@ export default {
     doCreateTodoList() {
       this.createTodoList(
         {
-          name: this.newTodoListName
+          name: this.newTodoListName,
+          callback: this.getTodos
         }
       );
     },
@@ -185,7 +187,8 @@ export default {
     doDeleteTodoList() {
       this.deleteTodoList(
         {
-          id: this.todoListsGet[0]['id']
+          id: this.todoListsGet[0]['id'],
+          callback: this.getTodos
         }
       );
     },
@@ -196,7 +199,8 @@ export default {
         {
           name: this.newTodoName,
           completed: 0,
-          todolist_id: this.todoListsGet[0]['id']
+          todolist_id: this.todoListsGet[0]['id'],
+          callback: this.getTodos
         }
       )
     },
@@ -205,7 +209,8 @@ export default {
     doDeleteTodo() {
       this.deleteTodo(
         {
-          id: this.todoListsGet[0]['todos'][0]['id']
+          id: this.todoListsGet[0]['todos'][0]['id'],
+          callback: this.getTodos
         }
       )
     },
@@ -229,7 +234,11 @@ export default {
           id: this.currTodoId,
           name: this.currTodoName,
           completed: (this.currTodoCompleted ? 0 : 1),
-          todolist_id: this.currTodoIdList
+          todolist_id: this.currTodoIdList,
+          callback: () => {
+            this.getTodos();
+            setTimeout(this.loadDataTemp, 1500);
+          }
         }
       );
     },
@@ -241,7 +250,11 @@ export default {
           id: this.currTodoId,
           name: this.currTodoName,
           completed: (this.currTodoCompleted ? 1 : 0),
-          todolist_id: this.currTodoIdList
+          todolist_id: this.currTodoIdList,
+          callback: () => {
+            this.getTodos();
+            setTimeout(this.loadDataTemp, 1500);
+          }
         }
       );
     }
