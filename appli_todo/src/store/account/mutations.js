@@ -18,7 +18,7 @@ export function register(state, data) {
 
 
 // Login
-// data: { email: '', password:   '' }
+// data: { email: '', password: '' }
 // Returns => Auth token
 export function login(state, data) {
 
@@ -29,6 +29,11 @@ export function login(state, data) {
             + "&password="  + data.password
         )
         .then(result => state.token = result.data['token'])
+        .then(() => {
+            if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
+                data.callback()
+            }
+        })
         .catch(error => (console.log(error), state.token = null));
 }
 
@@ -71,7 +76,7 @@ export function getTodos(state) {
 
 
 // createTodoList
-// data: { name: '' }
+// data: { name: '', (callback: Optional: Function to call after completion) }
 export function createTodoList(state, data) {
     axios.post("http://138.68.74.39/api/todolist?name=" + data.name, {},
         {
@@ -81,13 +86,17 @@ export function createTodoList(state, data) {
             }
         }
     )
-    //.then(() => this.getTodoLists())
+    .then(() => {
+        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
+            data.callback()
+        }
+    })
     .catch(error => console.log('error', error));
 }
 
 
 // deleteTodoList
-// data: { id: '' }
+// data: { id: '', (callback: Optional: Function to call after completion) }
 export function deleteTodoList(state, data) {
     axios.delete("http://138.68.74.39/api/todolist/" + data.id,
         {
@@ -97,12 +106,17 @@ export function deleteTodoList(state, data) {
             }
         }
     )
+    .then(() => {
+        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
+            data.callback()
+        }
+    })
     .catch(error => console.log('error', error));
 }
 
 
 // createTodo
-// data: { name: '', completed: 0/1, todolist_id: 0 }
+// data: { name: '', completed: 0/1, todolist_id: 0, (callback: Optional: Function to call after completion) }
 export function createTodo(state, data) {
 
     axios.post(
@@ -119,13 +133,18 @@ export function createTodo(state, data) {
         }
       }
     )
-      .catch(error => console.log('error', error));
+    .then(() => {
+        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
+            data.callback()
+        }
+    })
+    .catch(error => console.log('error', error));
     
 }
 
 
 // deleteTodo
-// data: { id: 0 }
+// data: { id: 0, (callback: Optional: Function to call after completion) }
 export function deleteTodo(state, data) {
 
     axios.delete("http://138.68.74.39/api/todo/" + data.id,
@@ -136,13 +155,18 @@ export function deleteTodo(state, data) {
             }
         }
     )
+    .then(() => {
+        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
+            data.callback()
+        }
+    })
     .catch(error => console.log('error', error));
     
 }
 
 
 // completeTodo
-// data: { id:0, name: '', completed: 0/1, todolist_id: 0 }
+// data: { id:0, name: '', completed: 0/1, todolist_id: 0, (callback: Optional: Function to call after completion) }
 export function completeTodo(state, data) {
 
     axios.post("http://138.68.74.39/api/completeTodo/" + data.id 
@@ -157,13 +181,18 @@ export function completeTodo(state, data) {
             }
         }
     )
+    .then(() => {
+        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
+            data.callback()
+        }
+    })
     .catch(error => console.log('error', error));
     
 }
 
 
 // modifyTodo
-// data: { id:0, name: '', completed: 0/1, todolist_id: 0 }
+// data: { id:0, name: '', completed: 0/1, todolist_id: 0, (callback: Optional: Function to call after completion) }
 export function modifyTodo(state, data) {
 
     axios.patch("http://138.68.74.39/api/todo/" + data.id 
@@ -177,7 +206,12 @@ export function modifyTodo(state, data) {
         'Content-Type': 'application/json'
       }
     }
-  )
+    )
+    .then(() => {
+        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
+            data.callback()
+        }
+    })
     .catch(error => console.log('error', error));
     
 }
