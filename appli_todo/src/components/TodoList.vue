@@ -1,12 +1,20 @@
 <template>
-  <p>Todo list: {{name}}</p>
-  
-  Todos:
+  <h2> {{ name }} : </h2>
+
   <ul v-for="todo in getTodos(id)" :key="generateKey(todo)">
-    <li>
-      {{ todo }}
+    <li style="list-style-type: none"> 
+      <input type="checkbox" v-model="todo.completed">
+      {{ todo.name }}
     </li>
   </ul>
+
+  <input type="text" name="newTodoName" v-model="newTodoName">
+  <button v-on:click="addTodo">Ajouter</button>
+  <br> <br>
+  <button> Toutes </button>
+  <button> A faire </button>
+  <button> Faites </button>
+  <!-- show('filter')-->
 </template>
 
 <script>
@@ -47,7 +55,7 @@ export default defineComponent({
       
       this.createTodoList(
         {
-          data: this.newTodoListName
+          name: this.newTodoListName
         }
       );
       this.newTodoListName = '';
@@ -60,17 +68,16 @@ export default defineComponent({
       this.createTodo(
         {
           id: this.id,
-          data: this.newTodoListName
+          name: this.newTodoName,
         }
       );
       this.newTodoName = '';
     }
   },
   computed: {
-    ...mapGetters('todolist', ['getTodos'])
+    ...mapGetters('todolist', ['getTodos', 'getTodoLists'])
   },
   components: {
-    
   }
 })
 

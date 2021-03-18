@@ -3,32 +3,32 @@ export function load({ commit }) {
 	commit("load", [
 		{
 			"id": 0,
-			"name": "todo list 0",
+			"name": "Liste 1",
 			"todos": [
 				{
 					"id": 0,
-					"name": "todo 0 in list 0",
+					"name": "Test 1",
 					"completed": false
 				},
 				{
 					"id": 1,
-					"name": "todo 1 in list 0",
+					"name": "Test 2",
 					"completed": true
 				}
 			]
 		},
 		{
 			"id": 1,
-			"name": "todo list 1",
+			"name": "Liste 2",
 			"todos": [
 				{
 					"id": 0,
-					"name": "todo 0 in list 1",
+					"name": "Test 3",
 					"completed": false
 				},
 				{
 					"id": 1,
-					"name": "todo 1 in list 1",
+					"name": "Test 4",
 					"completed": false
 				}
 			]
