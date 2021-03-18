@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    h2{
+        color: #cadae4
+    }
+    h1{
+        color: white
+    }
+    li{
+        color: #d7d7d7
+    }
+}
