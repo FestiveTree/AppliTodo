@@ -114,7 +114,7 @@ export default {
 
   computed: {
     ...mapGetters(
-      "apistore", 
+      "account", 
       { 
         loginToken: 'getterToken',
         userData: 'getterUser',
@@ -125,7 +125,7 @@ export default {
 
   methods: {
     ...mapActions(
-        "apistore", 
+        "account", 
         [
           'login',
           'register',
