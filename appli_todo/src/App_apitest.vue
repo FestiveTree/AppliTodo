@@ -157,7 +157,18 @@ export default {
         { 
           username: 'TestAPI' + this.testid,
           email: 'TestAPI' + this.testid + '@monmail.fr.nf', 
-          password: 'Toto1234##'
+          password: 'Toto1234##',
+
+          callback: (result) => {
+            if (result.status == 200) {
+              console.log('Connection effectuee')
+              this.getTodos();
+              this.getUser();
+            } else {
+              console.log('Erreur de connection')
+            }
+          }
+
         }
       );
     },
@@ -166,12 +177,20 @@ export default {
     doLogin() {
       this.login(
         { 
+
           email: 'TestAPI' + this.testid + '@monmail.fr.nf', 
           password: 'Toto1234##',
-          callback: () => {
-            this.getTodos();
-            this.getUser();
+
+          callback: (result) => {
+            if (result.status == 200) {
+              console.log('Connection effectuee')
+              this.getTodos();
+              this.getUser();
+            } else {
+              console.log('Erreur de connection')
+            }
           }
+
         }
       );
     },
@@ -181,7 +200,9 @@ export default {
       this.createTodoList(
         {
           name: this.newTodoListName,
-          callback: this.getTodos
+          callback: () => {
+            this.getTodos();
+          }
         }
       );
     },

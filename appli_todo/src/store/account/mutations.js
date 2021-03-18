@@ -1,19 +1,30 @@
 import axios from 'axios';
 
+
+// If the callback is an actual callback, call it with the response as a parameter.
+export function callbackHandler(data, response) {
+    if (typeof data !== "undefined") {
+        if (typeof data.callback === "function") {
+            data.callback(response)
+        }
+    }
+}
+
+
+
 // Register
 // data: { username:   '', email:      '', password:   '' }
 // Returns => Auth token
 export function register(state, data) {
     
-    // Todo: Validation
     axios.post(
             "http://138.68.74.39/api/register?" 
             + "name="       + data.username 
             + "&email="     + data.email
             + "&password="  + data.password
         )
-        .then(result => state.token = result.data['token'])
-        .catch(error => console.log('error', error));
+        .then(result => (state.token = result.data['token'], callbackHandler(data, result)))
+        .catch(error => (console.log('error', error), state.token = null, callbackHandler(data, error.response)));
 }
 
 
@@ -22,25 +33,19 @@ export function register(state, data) {
 // Returns => Auth token
 export function login(state, data) {
 
-    // Todo: Validation
     axios.post(
             "http://138.68.74.39/api/login?"
             + "email="      + data.email
             + "&password="  + data.password
         )
-        .then(result => state.token = result.data['token'])
-        .then(() => {
-            if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
-                data.callback()
-            }
-        })
-        .catch(error => (console.log(error), state.token = null));
+        .then(result => (state.token = result.data['token'], callbackHandler(data, result)))
+        .catch(error => (console.log('error', error), state.token = null, callbackHandler(data, error.response)));
 }
 
 
 // getUser
 // Returns => User info: { "id", "name", "email", "email_verified_at", "created_at", "updated_at" }
-export function getUser(state) {
+export function getUser(state, data) {
 
     axios.get("http://138.68.74.39/api/user", 
         {
@@ -50,16 +55,15 @@ export function getUser(state) {
             }
         }
     )
-    .then(result => state.currentUser = result.data)
-    .catch(error => (console.log(error), state.token = null));
+    .then(result => (state.currentUser = result.data, callbackHandler(data, result)))
+    .catch(error => (console.log('error', error), state.token = null, callbackHandler(data, error.response)));
 
 }
 
 
 // getTodos
 // Returns => Todos
-export function getTodos(state) {
-
+export function getTodos(state, data) {
 
     axios.get("http://138.68.74.39/api/todolists", 
         {
@@ -69,8 +73,8 @@ export function getTodos(state) {
             }
         }
     )
-    .then(result => state.todos = result.data)
-    .catch(error => console.log('error', error));
+    .then(result => (state.todos = result.data, callbackHandler(data, result)))
+    .catch(error => (console.log('error', error), callbackHandler(data, error.response)));
 
 }
 
@@ -86,12 +90,8 @@ export function createTodoList(state, data) {
             }
         }
     )
-    .then(() => {
-        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
-            data.callback()
-        }
-    })
-    .catch(error => console.log('error', error));
+    .then(result => callbackHandler(data, result))
+    .catch(error => (console.log('error', error), callbackHandler(data, error.response)));
 }
 
 
@@ -106,12 +106,8 @@ export function deleteTodoList(state, data) {
             }
         }
     )
-    .then(() => {
-        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
-            data.callback()
-        }
-    })
-    .catch(error => console.log('error', error));
+    .then(result => callbackHandler(data, result))
+    .catch(error => (console.log('error', error), callbackHandler(data, error.response)));
 }
 
 
@@ -133,12 +129,8 @@ export function createTodo(state, data) {
         }
       }
     )
-    .then(() => {
-        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
-            data.callback()
-        }
-    })
-    .catch(error => console.log('error', error));
+    .then(result => callbackHandler(data, result))
+    .catch(error => (console.log('error', error), callbackHandler(data, error.response)));
     
 }
 
@@ -155,12 +147,8 @@ export function deleteTodo(state, data) {
             }
         }
     )
-    .then(() => {
-        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
-            data.callback()
-        }
-    })
-    .catch(error => console.log('error', error));
+    .then(result => callbackHandler(data, result))
+    .catch(error => (console.log('error', error), callbackHandler(data, error.response)));
     
 }
 
@@ -181,12 +169,8 @@ export function completeTodo(state, data) {
             }
         }
     )
-    .then(() => {
-        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
-            data.callback()
-        }
-    })
-    .catch(error => console.log('error', error));
+    .then(result => callbackHandler(data, result))
+    .catch(error => (console.log('error', error), callbackHandler(data, error.response)));
     
 }
 
@@ -207,11 +191,7 @@ export function modifyTodo(state, data) {
       }
     }
     )
-    .then(() => {
-        if (Object.prototype.hasOwnProperty.call(data, 'callback')) {
-            data.callback()
-        }
-    })
-    .catch(error => console.log('error', error));
+    .then(result => callbackHandler(data, result))
+    .catch(error => (console.log('error', error), callbackHandler(data, error.response)));
     
 }
