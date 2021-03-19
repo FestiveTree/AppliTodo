@@ -1,7 +1,7 @@
 <template>
   <h2> {{ name }} : </h2>
 
-  <ul v-for="todo in getTodos(id)" :key="generateKey(todo)">
+  <ul v-for="todo in getTodos(id,filter)" :key="generateKey(todo)">
     <li style="list-style-type: none"> 
       <input type="checkbox" v-model="todo.completed">
       {{ todo.name }}
@@ -11,9 +11,9 @@
   <input type="text" name="newTodoName" v-model="newTodoName">
   <button v-on:click="addTodo">Ajouter</button>
   <br> <br>
-  <button> Toutes </button>
-  <button> A faire </button>
-  <button> Faites </button>
+  <button v-on:click="changeFilter('all')"> Toutes </button>
+  <button v-on:click="changeFilter('not completed')"> A faire </button>
+  <button v-on:click="changeFilter('completed')"> Faites </button>
   <!-- show('filter')-->
 </template>
 
@@ -28,7 +28,8 @@ export default defineComponent({
   data() {
     return {
       newTodoListName: '',
-      newTodoName: ''
+      newTodoName: '',
+      filter: 'all'
     }
   },
   props: {
@@ -72,6 +73,9 @@ export default defineComponent({
         }
       );
       this.newTodoName = '';
+    },
+    changeFilter(filter) {
+      this.filter = filter;
     }
   },
   computed: {
