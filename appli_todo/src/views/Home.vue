@@ -1,7 +1,7 @@
 <template>
   <p>Welcome: HOME page</p>
   
-  <h1> ToDoList ({{ getTodoLists.length }}) </h1>
+  <h1 v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
 
   <ul v-for="todoList in getTodoLists" :key="generateKey(todoList)">
     <li> <TodoList v-bind="{id: todoList.id, name: todoList.name}"/> </li>
@@ -34,22 +34,30 @@ export default defineComponent({
         password: 'Toto1234##',
           
         callback: (result) => {
+
+          console.log(result);
+          
           if (result.status == 200) {
             console.log('Connection effectuee')
-            this.load();
+
+            this.load({
+              callback: (res) => {
+                console.log(res);
+              }
+            });
+
             this.getUser();
+
           } else {
             console.log('Erreur de connection')
           }
         }
       }
     );
-
-    this.load()
   },
   methods: {
     ...mapActions('todolist', ['load', 'createTodoList']),
-    ...mapActions('account', ['login']),
+    ...mapActions('account', ['login', 'getUser']),
     generateKey(todolist) {
       return '$' + todolist.id + 
         '$' + todolist.name + 
