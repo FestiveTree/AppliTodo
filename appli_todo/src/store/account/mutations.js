@@ -23,7 +23,7 @@ export function register(state, data) {
             + "&email="     + data.email
             + "&password="  + data.password
         )
-        .then(result => (state.token = result.data['token'], callbackHandler(data, result)))
+        .then(result => (localStorage.setItem('token', result.data['token']), state.token = result.data['token'], callbackHandler(data, result)))
         .catch(error => (console.log('error', error), state.token = null, callbackHandler(data, error.response)));
 }
 
