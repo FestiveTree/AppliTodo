@@ -5,6 +5,8 @@
   
   <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
   
+  <button v-if="currentTodoList" v-on:click="deleteTodoList_">Supprimer la liste</button>
+  <br v-if="currentTodoList">
   <TodoList v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
   <p v-else style="color: white">Sélectionnez une liste de todo</p>
 </template>
@@ -55,7 +57,7 @@ export default defineComponent({
     );
   },
   methods: {
-    ...mapActions('todolist', ['load']),
+    ...mapActions('todolist', ['load', 'deleteTodoList']),
     ...mapActions('account', ['login', 'getUser']),
     generateKey(todolist) {
       return '$' + todolist.id + 
@@ -64,6 +66,14 @@ export default defineComponent({
     },
     changeCurrentTodoList(todolist) {
       this.currentTodoList = todolist;
+    },
+    deleteTodoList_() {
+      if (this.currentTodoList != null) {
+        this.deleteTodoList({
+          id: this.currentTodoList.id
+        });
+        this.currentTodoList = null;
+      }
     }
   },
   computed: {
