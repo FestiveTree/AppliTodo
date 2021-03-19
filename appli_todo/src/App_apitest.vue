@@ -3,8 +3,12 @@
   <!--
   <TodoList idList="f3b4"/>
   -->
+  
+  <h1>Online: {{ this.onLine }}</h1>
+  <p>Int test</p>
 
   <div class="container">
+
     
       <div id="control" class="left">
 
@@ -21,7 +25,7 @@
       <!--  <button v-on:click="showLoginToken">Show Login Token</button>  -->
 
         <button v-on:click="getUser">Test getUser</button>
-        <button v-on:click="getTodos">Test getTodos</button>
+        <button v-on:click="load">Test load</button>
         <br/><br/>
 
 
@@ -51,7 +55,7 @@
         IdList: <input v-model="currTodoIdList"/>
         <br/>
 
-        <button v-on:click="doCompleteTodo">(Un)Complete Todo</button>
+        <button v-on:click="doCompleteTodo">Complete Todo</button>
         <button v-on:click="doModifyTodo">Modify Todo</button>
         <br/>
 
@@ -109,6 +113,10 @@ export default {
       currTodoId: '',
       currTodoIdList: '',
       currTodoCompleted: false,
+
+
+      onLine: navigator.onLine,
+      showBackOnline: false
     }
   },
 
@@ -118,27 +126,63 @@ export default {
       { 
         loginToken: 'getterToken',
         userData: 'getterUser',
-        todoListsGet: 'getterTodos'
+        //todoListsGet: 'getterTodos'
+      }
+    ),
+
+    ...mapGetters(
+      "todolist", 
+      { 
+        todoListsGet: 'getTodoLists'
       }
     )
   },
 
+  mounted() {
+    window.addEventListener('online', this.updateOnlineStatus);
+    window.addEventListener('offline', this.updateOnlineStatus);
+  },
+  beforeUnmount() {
+    window.removeEventListener('online', this.updateOnlineStatus);
+    window.removeEventListener('offline', this.updateOnlineStatus);
+  },
+
   methods: {
+
+    updateOnlineStatus(e) {
+      const {
+        type
+      } = e;
+      this.onLine = type === 'online';
+    },
+
+//#region API
+
     ...mapActions(
         "account", 
         [
           'login',
-          'register',
-          'getUser', 
-          'getTodos', 
-          'createTodoList', 
-          'deleteTodoList', 
+          'getUser'
+        ]
+    ),
+
+    ...mapActions(
+        "todolist", 
+        [
+          'load',
+          'createTodoList',
+          'deleteTodoList',
           'createTodo',
           'deleteTodo',
           'completeTodo',
-          'modifyTodo'
         ]
-      ),
+    ),
+    ...mapActions(
+      "todolist", 
+      { 
+        modifyTodo: 'updateTodo'
+      }
+    ),
 
     showID() {
       console.log(this.testid);
@@ -162,7 +206,7 @@ export default {
           callback: (result) => {
             if (result.status == 200) {
               console.log('Connection effectuee')
-              this.getTodos();
+              this.load();
               this.getUser();
             } else {
               console.log('Erreur de connection')
@@ -180,16 +224,17 @@ export default {
 
           email: 'TestAPI' + this.testid + '@monmail.fr.nf', 
           password: 'Toto1234##',
-
+          
           callback: (result) => {
             if (result.status == 200) {
               console.log('Connection effectuee')
-              this.getTodos();
+              this.load();
               this.getUser();
             } else {
               console.log('Erreur de connection')
             }
           }
+          
 
         }
       );
@@ -201,7 +246,7 @@ export default {
         {
           name: this.newTodoListName,
           callback: () => {
-            this.getTodos();
+            this.load();
           }
         }
       );
@@ -212,7 +257,7 @@ export default {
       this.deleteTodoList(
         {
           id: this.todoListsGet[0]['id'],
-          callback: this.getTodos
+          callback: this.load
         }
       );
     },
@@ -223,8 +268,11 @@ export default {
         {
           name: this.newTodoName,
           completed: 0,
-          todolist_id: this.todoListsGet[0]['id'],
-          callback: this.getTodos
+          id: this.todoListsGet[0]['id'],
+          callback: () => {
+            //console.log(res)
+            this.load()
+          }
         }
       )
     },
@@ -233,8 +281,9 @@ export default {
     doDeleteTodo() {
       this.deleteTodo(
         {
-          id: this.todoListsGet[0]['todos'][0]['id'],
-          callback: this.getTodos
+          id: this.todoListsGet[0]['id'],
+          idTodo: this.todoListsGet[0]['todos'][0]['id'],
+          callback: this.load
         }
       )
     },
@@ -242,7 +291,6 @@ export default {
 
     loadDataTemp() {
       var tmptodosstuff = this.todoListsGet.map( x => x['todos']).flat();
-      console.log(tmptodosstuff);
 
       this.currTodoName = tmptodosstuff[0].name;
       this.currTodoCompleted = (tmptodosstuff[0].completed ? true : false);
@@ -255,13 +303,14 @@ export default {
     doCompleteTodo() {
       this.completeTodo(
         {
-          id: this.currTodoId,
-          name: this.currTodoName,
-          completed: (this.currTodoCompleted ? 0 : 1),
-          todolist_id: this.currTodoIdList,
+          idTodo: this.currTodoId,
+          id: this.currTodoIdList,
           callback: () => {
-            this.getTodos();
-            setTimeout(this.loadDataTemp, 1500);
+            this.load({
+              callback: () => {
+                this.loadDataTemp();
+              }
+            });
           }
         }
       );
@@ -271,17 +320,23 @@ export default {
     doModifyTodo() {
       this.modifyTodo(
         {
-          id: this.currTodoId,
-          name: this.currTodoName,
-          completed: (this.currTodoCompleted ? 1 : 0),
-          todolist_id: this.currTodoIdList,
+          idTodo: this.currTodoId,
+          id: this.currTodoIdList,
+          todo: {
+            name: this.currTodoName,
+            completed: this.currTodoCompleted,
+          },
           callback: () => {
-            this.getTodos();
-            setTimeout(this.loadDataTemp, 1500);
+            this.load({
+              callback: () => {
+                this.loadDataTemp();
+              }
+            });
           }
         }
       );
     }
+//#endregion
 
   },
 }

@@ -26,10 +26,30 @@ export default defineComponent({
     }
   },
   created() {
+
+    this.login(
+      { 
+        
+        email: 'TestAPI33t6ws@monmail.fr.nf', 
+        password: 'Toto1234##',
+          
+        callback: (result) => {
+          if (result.status == 200) {
+            console.log('Connection effectuee')
+            this.load();
+            this.getUser();
+          } else {
+            console.log('Erreur de connection')
+          }
+        }
+      }
+    );
+
     this.load()
   },
   methods: {
     ...mapActions('todolist', ['load', 'createTodoList']),
+    ...mapActions('account', ['login']),
     generateKey(todolist) {
       return '$' + todolist.id + 
         '$' + todolist.name + 

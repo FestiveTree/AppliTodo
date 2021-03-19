@@ -1,40 +1,5 @@
-export function load({ commit }) {
-	
-	commit("load", [
-		{
-			"id": 0,
-			"name": "Liste 1",
-			"todos": [
-				{
-					"id": 0,
-					"name": "Test 1",
-					"completed": false
-				},
-				{
-					"id": 1,
-					"name": "Test 2",
-					"completed": true
-				}
-			]
-		},
-		{
-			"id": 1,
-			"name": "Liste 2",
-			"todos": [
-				{
-					"id": 0,
-					"name": "Test 3",
-					"completed": false
-				},
-				{
-					"id": 1,
-					"name": "Test 4",
-					"completed": false
-				}
-			]
-		}
-	]);
-	
+export function load({ commit }, data) {
+	commit("load", data);
 }
 
 export function createTodoList({ commit }, data) { // data={name}

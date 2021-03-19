@@ -5,9 +5,6 @@ export default function () {
         token: null,
 
         // From getUser
-        currentUser: null,
-
-        // From getTodoLists
-        todos: []
+        currentUser: null
     }
 }
