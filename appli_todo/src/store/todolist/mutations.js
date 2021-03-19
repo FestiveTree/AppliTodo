@@ -176,7 +176,7 @@ export function updateTodo(state, data) {
 	
 	axios.patch("http://138.68.74.39/api/todo/" + data.idTodo
     + "?name="          + data.todo.name 
-    /*+ "&completed="     + (data.todo.completed ? 1 : 0)*/
+    + "&completed="     + (data.todo.completed ? 1 : 0)
     + "&todolist_id="   + data.id,
     {},
     {
