@@ -3,7 +3,7 @@
 
   <ul v-for="todo in getTodos(id,filter)" :key="generateKey(todo)">
     <li style="list-style-type: none"> 
-      <input type="checkbox" v-model="todo.completed">
+      <input type="checkbox" v-model="todo.completed" @update:modelValue="completeTodo_(todo)">
       {{ todo.name }}
     </li>
   </ul>
@@ -43,7 +43,7 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions('todolist', ['createTodoList', 'createTodo']),
+    ...mapActions('todolist', ['createTodoList', 'createTodo', 'completeTodo']),
     generateKey(todo) {
       return '$' + todo.id + 
         '$' + todo.name + 
@@ -73,6 +73,15 @@ export default defineComponent({
         }
       );
       this.newTodoName = '';
+    },
+    completeTodo_(todo) {
+      this.completeTodo(
+        {
+          id: this.id,
+          idTodo: todo.id,
+          todo: todo
+        }
+      );
     },
     changeFilter(filter) {
       this.filter = filter;

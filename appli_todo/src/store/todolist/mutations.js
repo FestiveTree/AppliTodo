@@ -20,6 +20,15 @@ export function load(state, data) {
 	}
 	)
 	.then(result => (state.todoLists = result.data, callbackHandler(data, result)))
+	.then(() => {
+		if (state.todoLists) {
+			state.todoLists.forEach((list) => {
+				list.todos.forEach((todo) => {
+					todo.completed = todo.completed == 1 ? true : false
+				})
+			})
+		}
+	})
 	.catch(error => (console.log('error', error), callbackHandler(data, error.response)));
 
 }
@@ -134,15 +143,13 @@ export function deleteTodo(state, data) {
 // completeTodo
 // data: { id, idTodo, todo, (callback: Optional: Function to call after completion) }
 export function completeTodo(state, data) {
-
+		
 	const todoList = state.todoLists.find(todoList => todoList.id === data.id);
 	const todo = todoList.todos.find(todo => todo.id === data.idTodo);
 
-	todo.completed = true;
-
     axios.post("http://138.68.74.39/api/completeTodo/" + data.idTodo
     + "?name="          + todo.name 
-    + "&completed="     + 1
+    + "&completed="     + (todo.completed ? 1 : 0)
     + "&todolist_id="   + data.id,
     {},
         {
@@ -166,10 +173,10 @@ export function updateTodo(state, data) {
 	
 	todo.name = data.todo.name;
 	todo.completed = data.todo.completed;
-
+	
 	axios.patch("http://138.68.74.39/api/todo/" + data.idTodo
     + "?name="          + data.todo.name 
-    + "&completed="     + (data.todo.completed ? 1 : 0)
+    /*+ "&completed="     + (data.todo.completed ? 1 : 0)*/
     + "&todolist_id="   + data.id,
     {},
     {
