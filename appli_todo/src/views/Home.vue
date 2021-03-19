@@ -2,13 +2,11 @@
   <p>Welcome: HOME page</p>
   
   <h1 v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
-
-  <ul v-for="todoList in getTodoLists" :key="generateKey(todoList)">
-    <li> <TodoList v-bind="{id: todoList.id, name: todoList.name}"/> </li>
-  </ul>
-
-  <input type="text" name="newTodoListName" v-model="newTodoListName">
-  <button v-on:click="addTodoList">Ajouter</button>
+  
+  <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
+  
+  <TodoList v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
+  <p v-else style="color: white">Sélectionnez une liste de todo</p>
 </template>
 
 <script>
@@ -16,13 +14,14 @@ import { defineComponent } from 'vue'
 import { mapActions, mapGetters } from 'vuex'
 
 // import components:
+import Sidebar from '../components/Sidebar.vue'
 import TodoList from '../components/TodoList.vue'
 
 export default defineComponent({
   name: 'Home',
   data() {
     return {
-      newTodoListName: '',
+      currentTodoList: null
     }
   },
   created() {
@@ -56,29 +55,22 @@ export default defineComponent({
     );
   },
   methods: {
-    ...mapActions('todolist', ['load', 'createTodoList']),
+    ...mapActions('todolist', ['load']),
     ...mapActions('account', ['login', 'getUser']),
     generateKey(todolist) {
       return '$' + todolist.id + 
         '$' + todolist.name + 
         '$';
     },
-    addTodoList() {
-      if (this.newTodoListName == '')
-        return;
-      
-      this.createTodoList(
-        {
-          name: this.newTodoListName
-        }
-      );
-      this.newTodoListName = '';
+    changeCurrentTodoList(todolist) {
+      this.currentTodoList = todolist;
     }
   },
   computed: {
     ...mapGetters('todolist', ['getTodoLists'])
   },
   components: {
+    Sidebar,
     TodoList
   }
 })

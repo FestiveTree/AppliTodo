@@ -27,7 +27,6 @@ export default defineComponent({
   name: 'TodoList',
   data() {
     return {
-      newTodoListName: '',
       newTodoName: '',
       filter: 'all'
     }
@@ -43,25 +42,12 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions('todolist', ['createTodoList', 'createTodo', 'completeTodo']),
+    ...mapActions('todolist', ['createTodo', 'completeTodo']),
     generateKey(todo) {
       return '$' + todo.id + 
         '$' + todo.name + 
         '$';
     },
-    /*---------- lists ----------*/
-    addTodoList() {
-      if (this.newTodoListName == '')
-        return;
-      
-      this.createTodoList(
-        {
-          name: this.newTodoListName
-        }
-      );
-      this.newTodoListName = '';
-    },
-    /*---------- todos ----------*/
     addTodo() {
       if (this.newTodoName == '')
         return;
@@ -72,6 +58,7 @@ export default defineComponent({
           name: this.newTodoName,
         }
       );
+
       this.newTodoName = '';
     },
     completeTodo_(todo) {
@@ -89,8 +76,6 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters('todolist', ['getTodos', 'getTodoLists'])
-  },
-  components: {
   }
 })
 
