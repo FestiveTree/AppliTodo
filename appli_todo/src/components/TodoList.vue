@@ -100,7 +100,14 @@ export default defineComponent({
       )
       this.newName = '';
     },
-    modify(todo) { 
+    modify(todo) {
+      this.getTodos(this.id).forEach(elm => { 
+        if (elm.id != todo.id) {
+          document.getElementById('mod'+elm.id).type = "hidden";
+          document.getElementById('spa'+elm.id).style.display = "";
+          document.getElementById('but'+elm.id).style.display = "none";
+        }
+      });
       document.getElementById('mod'+todo.id).type = (document.getElementById('mod'+todo.id).type == "text" ? "hidden" : "text");
       document.getElementById('spa'+todo.id).style.display = (document.getElementById('spa'+todo.id).style.display == "" ? "none" : "");
       document.getElementById('but'+todo.id).style.display = (document.getElementById('but'+todo.id).style.display == "" ? "none" : "");
