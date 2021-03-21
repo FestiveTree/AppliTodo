@@ -1,7 +1,7 @@
 <template>
   <div class="my-6 text-center">
-    <h2>Welcome: LOGIN page</h2>
-    <div class="flex flex-col items-center rounded-full mx-96 "> 
+    <h2 class="text-2xl my-2">Page de connection</h2>
+    <div class="flex flex-col items-center rounded-full mx-96 border-b-2 border-t-2"> 
       <div class="z-10">
         <p>Identifiant:</p>
         <input class="bg-gray-300 focus:bg-white" v-model="inputUsername" id="user"/>
