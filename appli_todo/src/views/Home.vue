@@ -2,7 +2,7 @@
 
   <p>Welcome: HOME page</p>
   
-  <div v-if="loggedOn">
+  <div>
     <h1 v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
     
     <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
@@ -34,6 +34,11 @@ export default defineComponent({
       currentTodoList: null
     }
   },
+  mounted() {
+    if (localStorage.getItem('token') !== null) {
+      this.load();
+    }
+  },
   methods: {
     ...mapActions('todolist', ['load', 'deleteTodoList']),
     ...mapActions('account', ['login', 'getUser']),
@@ -56,9 +61,10 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters('todolist', ['getTodoLists']),
+    ...mapGetters('account', ['getterToken']),
 
     loggedOn() {
-      return localStorage.getItem('token') != null;
+      return localStorage.getItem('token') !== null;
     }
 
   },
