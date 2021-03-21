@@ -9,7 +9,7 @@
         <input class="bg-gray-300 focus:bg-white" v-model="inputPassword" id="pass" type="password"/>
       </div>
       
-      <button class=" bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doLogin">Login</button>
+      <button class=" my-2 bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doLogin">Login</button>
     </div>
   </div>
 </template>
