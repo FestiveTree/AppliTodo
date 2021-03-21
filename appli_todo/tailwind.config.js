@@ -16,10 +16,12 @@ module.exports = {
      gray: colors.trueGray,
      indigo: colors.indigo,
      red: colors.rose,
-     yellow: colors.amber,
+     amber: colors.amber,
      green: colors.green,
      blue: colors.blue,
      pink: colors.pink,
+     orange: colors.orange,
+     yellow: colors.yellow,
     },
   },
   variants: {
