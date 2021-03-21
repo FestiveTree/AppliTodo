@@ -2,13 +2,15 @@
 <!-- div for debug -->
 <div style="background-color: green">
   
-  <p>{{ name }}</p>
+  <p>{{ name }} ({{ getTodos(id, "completed").length }}/{{ getTodos(id).length}})</p>
   
 </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import { mapGetters } from 'vuex'
+
 
 export default defineComponent({
   name: 'SidebarItem',
@@ -21,7 +23,10 @@ export default defineComponent({
       type: String,
       default: ''
     }
-  }
+  },
+  computed: {
+    ...mapGetters('todolist', ['getTodos'])
+  },
 })
 
 </script>
