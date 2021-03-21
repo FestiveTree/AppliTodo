@@ -12,6 +12,8 @@
       <button class=" my-2 bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doLogin">Login</button>
     </div>
   </div>
+
+  <h1 v-if="displayLoggedOn">Vous êtes connecté!</h1>
 </template>
 
 <!-- flex flex-col h-screen my-auto items-center border-8 border-double border-gray-700"-->
@@ -19,18 +21,16 @@
 <script>
 import { defineComponent } from 'vue'
 import { mapActions} from 'vuex'
+import router from '../router';
 
 export default defineComponent({
   name: 'Home',
   data() {
           return {
-              inputUsername: '',
-              inputPassword: ''
+              inputUsername: 'TestAPI33t6ws@monmail.fr.nf',
+              inputPassword: 'Toto1234##',
+              displayLoggedOn: false,
           }
-  },
-
-  created() {
-    this.load()
   },
 
   methods: {
@@ -51,12 +51,14 @@ export default defineComponent({
                         //Chargement des todos
                         this.load();
 
-                        // Redirection au bout de 3 secondes.
+                        this.displayLoggedOn = true;
+                        
+                        // Redirection.
                         setTimeout(
                             function() {
-                                //Code de redirection ici
+                                router.back();
                             },
-                            3000
+                            1000
                         );
 
                 } else {
