@@ -5,6 +5,7 @@
     <li style="list-style-type: none"> 
       <input type="checkbox" v-model="todo.completed" @update:modelValue="completeTodo_(todo)">
       {{ todo.name }}
+      <button v-on:click="removeTodo(todo.id)"> Supprimer </button>
     </li>
   </ul>
 
@@ -42,7 +43,7 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions('todolist', ['createTodo', 'completeTodo']),
+    ...mapActions('todolist', ['createTodo', 'completeTodo', 'deleteTodo']),
     generateKey(todo) {
       return '$' + todo.id + 
         '$' + todo.name + 
@@ -72,6 +73,14 @@ export default defineComponent({
     },
     changeFilter(filter) {
       this.filter = filter;
+    },
+    removeTodo(idTodo) {
+      this.deleteTodo(
+        {
+          id: this.id,
+          idTodo: idTodo,
+        }
+      )
     }
   },
   computed: {
