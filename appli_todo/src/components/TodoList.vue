@@ -1,6 +1,7 @@
 <template>
+<div class="bg-red-500 items-center">
   <h2> {{ name }} : </h2>
-
+  
   <ul v-for="todo in getTodos(id,filter)" :key="generateKey(todo)">
     <li style="list-style-type: none"> 
       <input type="checkbox" v-model="todo.completed" @update:modelValue="completeTodo_(todo)">
@@ -17,6 +18,7 @@
   <button v-on:click="changeFilter('all')"> Toutes </button>
   <button v-on:click="changeFilter('not completed')"> A faire </button>
   <button v-on:click="changeFilter('completed')"> Faites </button>
+  </div>
   <!-- show('filter')-->
 </template>
 
