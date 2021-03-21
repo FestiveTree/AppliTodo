@@ -1,6 +1,6 @@
 <template>
 <!-- div for debug -->
-<div class="bg-gray-900">
+<div class="bg-gray-900 mx-8">
   
   <p>{{ name }} ({{ getTodos(id, "completed").length }}/{{ getTodos(id).length}})</p>
   
