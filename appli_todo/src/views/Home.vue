@@ -1,14 +1,22 @@
 <template>
+
   <p>Welcome: HOME page</p>
   
-  <h1 v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
-  
-  <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
-  
-  <button v-if="currentTodoList" v-on:click="deleteTodoList_">Supprimer la liste</button>
-  <br v-if="currentTodoList">
-  <TodoList v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
-  <p v-else style="color: white">Sélectionnez une liste de todo</p>
+  <div v-if="loggedOn">
+    <h1 v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
+    
+    <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
+    
+    <button v-if="currentTodoList" v-on:click="deleteTodoList_">Supprimer la liste</button>
+    <br v-if="currentTodoList">
+    <TodoList v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
+    <p v-else style="color: white">Sélectionnez une liste de todo</p>
+  </div>
+
+  <div v-if="!loggedOn">
+    <h1>Veuillez vous connecter</h1>
+  </div>
+
 </template>
 
 <script>
@@ -25,36 +33,6 @@ export default defineComponent({
     return {
       currentTodoList: null
     }
-  },
-  created() {
-
-    this.login(
-      { 
-        
-        email: 'TestAPI33t6ws@monmail.fr.nf', 
-        password: 'Toto1234##',
-          
-        callback: (result) => {
-
-          console.log(result);
-          
-          if (result.status == 200) {
-            console.log('Connection effectuee')
-
-            this.load({
-              callback: (res) => {
-                console.log(res);
-              }
-            });
-
-            this.getUser();
-
-          } else {
-            console.log('Erreur de connection')
-          }
-        }
-      }
-    );
   },
   methods: {
     ...mapActions('todolist', ['load', 'deleteTodoList']),
@@ -77,7 +55,12 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapGetters('todolist', ['getTodoLists'])
+    ...mapGetters('todolist', ['getTodoLists']),
+
+    loggedOn() {
+      return localStorage.getItem('token') != null;
+    }
+
   },
   components: {
     Sidebar,
