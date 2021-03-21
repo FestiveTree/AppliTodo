@@ -34,7 +34,7 @@ export default defineComponent({
   },
 
   methods: {
-    ...mapActions('account', ['login', 'getterToken']),
+    ...mapActions('account', ['login']),
     ...mapActions('todolist', ['load']),
     doLogin() {
         console.log(this.inputUsername,this.inputPassword)
