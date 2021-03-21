@@ -1,11 +1,20 @@
 <template>
-  <h2>Welcome: LOGIN page</h2>
-  <p>Identifiant:</p>
-  <input v-model="inputUsername" id="user"/>
-  <p>Mot de Passe:</p>
-  <input v-model="inputPassword" id="pass" type="password"/>
-  <button v-on:click="doLogin">Login</button>
+  <div class="my-6 text-center">
+    <h2 class="text-2xl my-2">Page de connection</h2>
+    <div class="flex flex-col items-center rounded-full mx-96 border-b-2 border-t-2"> 
+      <div class="z-10">
+        <p>Identifiant:</p>
+        <input class="bg-gray-300 focus:bg-white" v-model="inputUsername" id="user"/>
+        <p>Mot de Passe:</p>
+        <input class="bg-gray-300 focus:bg-white" v-model="inputPassword" id="pass" type="password"/>
+      </div>
+      
+      <button class=" my-2 bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doLogin">Login</button>
+    </div>
+  </div>
 </template>
+
+<!-- flex flex-col h-screen my-auto items-center border-8 border-double border-gray-700"-->
 
 <script>
 import { defineComponent } from 'vue'

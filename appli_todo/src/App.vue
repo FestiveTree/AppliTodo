@@ -1,7 +1,8 @@
 <template>
-  <router-link to="/" >Go to Home</router-link>
-  <router-link to="/login">Go to Login</router-link>
-
+  <div class="flex flex-col items-center">
+  <router-link  to="/" ><img class=" my-1 bg-gray-400 hover:bg-gray-300 rounded m-auto " src="./assets/home.png" width="32" height="32" ></router-link>
+  <router-link class="bg-gray-400 my-2  hover:bg-gray-300 rounded " to="/login">Login -></router-link>
+  </div>
   <!-- component matched by the route will render here -->
   <router-view></router-view>
 </template>
