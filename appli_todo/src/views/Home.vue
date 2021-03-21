@@ -68,6 +68,10 @@ export default defineComponent({
         '$';
     },
     changeCurrentTodoList(todolist) {
+      if (todolist == this.currentTodoList) {
+        this.currentTodoList = null;
+        return;
+      }
       this.currentTodoList = todolist;
     },
     deleteTodoList_() {
