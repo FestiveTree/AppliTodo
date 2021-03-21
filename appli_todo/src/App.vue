@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/" >Go to Home</router-link>
+  <router-link  to="/" ><img class="bg-gray-400" src="./assets/home.png" width="32" height="32" ></router-link>
   <router-link to="/login">Go to Login</router-link>
 
   <!-- component matched by the route will render here -->
