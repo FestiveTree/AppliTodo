@@ -4,7 +4,9 @@
   <ul v-for="todo in getTodos(id,filter)" :key="generateKey(todo)">
     <li style="list-style-type: none"> 
       <input type="checkbox" v-model="todo.completed" @update:modelValue="completeTodo_(todo)">
-      {{ todo.name }}
+      <span :id="'spa'+todo.id" style="" v-on:click="modify(todo)">{{ todo.name }}</span>
+      <input :id="'mod'+todo.id" type="hidden" v-model="newName">
+      <button :id="'but'+todo.id" style="display: none" v-on:click="changeTodo(todo, newName), modify(todo)"> Modifier </button>
       <button v-on:click="removeTodo(todo.id)"> Supprimer </button>
     </li>
   </ul>
@@ -29,7 +31,8 @@ export default defineComponent({
   data() {
     return {
       newTodoName: '',
-      filter: 'all'
+      filter: 'all',
+      newName: ''
     }
   },
   props: {
@@ -43,7 +46,7 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions('todolist', ['createTodo', 'completeTodo', 'deleteTodo']),
+    ...mapActions('todolist', ['createTodo', 'completeTodo', 'deleteTodo', 'updateTodo']),
     generateKey(todo) {
       return '$' + todo.id + 
         '$' + todo.name + 
@@ -81,6 +84,27 @@ export default defineComponent({
           idTodo: idTodo,
         }
       )
+    },
+    changeTodo(todo, newName) {
+      if (todo.name == newName){
+        this.newName = '';
+        return;
+      }
+      todo.name = newName;
+      this.updateTodo( 
+        {
+          id: this.id,
+          idTodo: todo.id,
+          todo: todo
+        }
+      )
+      this.newName = '';
+    },
+    modify(todo) { 
+      document.getElementById('mod'+todo.id).type = (document.getElementById('mod'+todo.id).type == "text" ? "hidden" : "text");
+      document.getElementById('spa'+todo.id).style.display = (document.getElementById('spa'+todo.id).style.display == "" ? "none" : "");
+      document.getElementById('but'+todo.id).style.display = (document.getElementById('but'+todo.id).style.display == "" ? "none" : "");
+      this.newName = todo.name;
     }
   },
   computed: {
