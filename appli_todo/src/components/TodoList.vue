@@ -15,9 +15,9 @@
   <input class="ml-5 rounded" type="text" name="newTodoName" v-model="newTodoName">
   <button class="mx-2 bg-green-600 hover:bg-green-400 text-white font-bold px-2  border-b-4 border-green-800 hover:border-green-500 rounded" v-on:click="addTodo">➕</button>
   <br> <br>
-  <button :disabled="filter == 'all'" class="disabled:bg-red-500 ml-5 mx-1 my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="changeFilter('all')"> Toutes </button>
-  <button :disabled="filter == 'not completed'" class="disabled:bg-red-500 mx-1 my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="changeFilter('not completed')"> A faire </button>
-  <button :disabled="filter == 'completed'" class="disabled:bg-red-500 mx-1 my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="changeFilter('completed')"> Faites </button>
+  <button :disabled="filter == 'all'" class="disabled:bg-red-500 disabled:border-red-300 ml-5 mx-1 my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="changeFilter('all')"> Toutes </button>
+  <button :disabled="filter == 'not completed'" class="disabled:bg-red-500 disabled:border-red-300 mx-1 my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="changeFilter('not completed')"> A faire </button>
+  <button :disabled="filter == 'completed'" class="disabled:bg-red-500 disabled:border-red-300 mx-1 my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="changeFilter('completed')"> Faites </button>
   </div>
   <!-- show('filter')-->
 </template>
