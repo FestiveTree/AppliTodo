@@ -16,10 +16,8 @@
           Annuler
         </button>
         
-        
         <br v-if="currentTodoList"/>
         
-        <!--<p class="w-64 text-center text-red-600 text-xl " v-else >Sélectionnez une liste de todo</p>-->
       </div>
       <div class="w-screen mr-4">
       <TodoList ref="todolistDisplay" v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
@@ -31,29 +29,13 @@
     </div>
 
   </div>
-<!--
-  
-  <div class="grid grid-flow-col">
-
-    <div class="w-64  bg-gray-400 border-t-2 border-r-2 border-l-2 text-center rounded-t" >
-      <h1 class="text-center " v-if="getTodoLists != null"> Vous avez {{ getTodoLists.length }} listes </h1>
-      <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
-      <div class="w-64  bg-gray-400 border-b-2 border-r-2 border-l-2 text-center rounded-b" v-if="getTodoLists != null">
-        <button class="my-2 bg-gray-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-red-500 rounded" v-on:click="deleteTodoList_">Supprimer la liste</button>
-        <br>
-      </div>
-    </div>
-    <TodoList v-if="getTodoLists != null" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
-    <p class="w-64  bg-gray-400 border-b-2 border-r-2 border-l-2 text-center rounded-b text-red-600 text-xl " v-else >Sélectionnez une liste de todo</p>
-  </div>
-======= -->
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import { mapActions, mapGetters } from 'vuex'
 
-// import components:
+// Import components:
 import Sidebar from '../components/Sidebar.vue'
 import TodoList from '../components/TodoList.vue'
 

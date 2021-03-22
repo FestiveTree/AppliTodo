@@ -9,14 +9,11 @@
         <input class="bg-gray-300 focus:bg-white" v-model="inputPassword" id="pass" type="password"/>
       </div>
       <button class=" my-2 bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doLogin">Se connecter</button>
-      <p class="pb-2"> Vous n'avez pas de compte ? <a href="" class="hover:text-blue-500 hover:underline cursor-pointer"> Cliquez ici pour créer un compte.</a> </p>
+      <p class="pb-2"> Vous n'avez pas de compte ? <router-link v-if="!loggedOn" to="/register" class="hover:text-blue-500 hover:underline cursor-pointer"> Cliquez ici pour créer un compte.</router-link> </p>
     </div>
   </div>
-
   <h1 v-if="displayLoggedOn">Vous êtes connecté!</h1>
 </template>
-
-<!-- flex flex-col h-screen my-auto items-center border-8 border-double border-gray-700"-->
 
 <script>
 import { defineComponent } from 'vue'
@@ -24,7 +21,7 @@ import { mapActions} from 'vuex'
 import router from '../router';
 
 export default defineComponent({
-  name: 'Home',
+  name: 'Login',
   data() {
           return {
               inputUsername: 'TestAPI33t6ws@monmail.fr.nf',
@@ -43,12 +40,12 @@ export default defineComponent({
                 email: this.inputUsername,
                 password: this.inputPassword,
 
-                //Debut de callback
+                // Debut de callback
                 callback: (result) => {
                     if (result.status == 200) {
                         console.log('Connection effectuee');
 
-                        //Chargement des todos
+                        // Chargement des todos
                         this.load();
 
                         this.displayLoggedOn = true;

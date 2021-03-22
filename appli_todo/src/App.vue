@@ -1,11 +1,11 @@
 <template>
   <div class="flex items-stretch justify-center w-screen space-x-4">
     <router-link  to="/" ><img class="p-1 my-2 bg-gray-400 hover:bg-gray-300 rounded " src="./assets/home.png" width="32" height="32" ></router-link>
-    <router-link v-if="!loggedOn" class="p-1 bg-gray-400 my-2  hover:bg-gray-300 rounded " to="/login">Login -></router-link>
-    <router-link v-if="!loggedOn" class="p-1 bg-gray-400 my-2  hover:bg-gray-300 rounded " to="/register">Register -></router-link>
-    <a v-if="loggedOn" class="p-1 my-2 bg-gray-400 hover:bg-gray-300 rounded " v-on:click="disconnect">Disconnect</a>
+    <router-link v-if="!loggedOn" class="p-1 bg-gray-400 my-2  hover:bg-gray-300 rounded " to="/login">Connexion</router-link>
+    <router-link v-if="!loggedOn" class="p-1 bg-gray-400 my-2  hover:bg-gray-300 rounded " to="/register">Inscription</router-link>
+    <a v-if="loggedOn" class="p-1 my-2 bg-gray-400 hover:bg-gray-300 rounded cursor-pointer" v-on:click="disconnect">Déconnexion</a>
   </div>
-  <!-- component matched by the route will render here -->
+  <!-- Component matched by the route will render here -->
   <router-view></router-view>
 </template>
 
@@ -32,14 +32,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<!--style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style-->

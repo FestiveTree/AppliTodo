@@ -10,15 +10,13 @@
         <p>Mot de Passe:</p>
         <input class="bg-gray-300 focus:bg-white" v-model="inputPassword" id="pass" type="password"/>
       </div>
-
       <button class=" my-2 bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doRegister">Créer un compte</button>
+      <p class="pb-2"> Vous avez déjà un compte ? <router-link v-if="!loggedOn" to="/login" class="hover:text-blue-500 hover:underline cursor-pointer"> Cliquez ici.</router-link> </p>
     </div>
   </div>
 
   <h1 v-if="displayLoggedOn">Vous êtes inscrit!</h1>
 </template>
-
-<!-- flex flex-col h-screen my-auto items-center border-8 border-double border-gray-700"-->
 
 <script>
 import { defineComponent } from 'vue'
@@ -26,7 +24,7 @@ import { mapActions} from 'vuex'
 import router from '../router';
 
 export default defineComponent({
-  name: 'Home',
+  name: 'Register',
   data() {
           return {
               inputUsername: '',

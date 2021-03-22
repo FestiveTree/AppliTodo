@@ -1,5 +1,5 @@
 <template>
-<!-- div for debug -->
+
 <div >
   <div class="mt-4 ">
   <ul class="mt-1 text-center" >
@@ -18,7 +18,7 @@
 import { defineComponent } from 'vue'
 import { mapActions, mapGetters } from 'vuex'
 
-// import components:
+// Import components:
 import SidebarItem from './SidebarItem.vue'
 
 export default defineComponent({
@@ -47,6 +47,7 @@ export default defineComponent({
             if (res.status == 200) {
               const todoList = this.getTodoLists.find((todoList) => todoList.id === res.data.id);
               this.$emit('currentTodoList', {todolist: todoList});
+              this.currentTodoList = todoList;
             }
           }
         }
@@ -54,7 +55,7 @@ export default defineComponent({
       
       this.newTodoListName = '';
     },
-    // inspiration: https://stackoverflow.com/questions/40915436/vuejs-update-parent-data-from-child-component
+    // Inspiration: https://stackoverflow.com/questions/40915436/vuejs-update-parent-data-from-child-component
     changeCurrentTodoList(todolist) {
       this.$emit('currentTodoList', {todolist: todolist});
       if (todolist == this.currentTodoList) {
