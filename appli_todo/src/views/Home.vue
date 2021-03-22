@@ -4,7 +4,7 @@
     <h2 class="text-2xl my-2 text-center">Page principale</h2>
     
     <div class="flex" v-if="getterToken !== null">
-      <div class="w-3/12 mb-2 bg-gray-400 border-t-2 border-r-2 border-l-2 border-b-2 text-center rounded mx-3 flex-inital"  >
+      <div class="w-3/12 mb-2 text-center rounded mx-3 flex-inital"  >
         <h1 class="text-center mt-4 font-semibold text-2xl" v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
         
         <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
