@@ -9,7 +9,7 @@
   </ul>
   </div>
   
-  <input class="bg-gray-200 focus:bg-white m-1 rounded" type="text" name="newTodoListName" v-model="newTodoListName">
+  <input class="bg-gray-200 focus:bg-white m-1 rounded" type="text" name="newTodoListName" v-model="newTodoListName" v-on:keypress.enter="addTodoList">
   <button class ="my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="addTodoList">Ajouter</button>
 </div>
 </template>
