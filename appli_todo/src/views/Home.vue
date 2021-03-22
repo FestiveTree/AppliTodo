@@ -9,8 +9,15 @@
         
         <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
         
-        <button class="my-2 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" v-if="currentTodoList" v-on:click="deleteTodoList_">Supprimer la liste</button>
-        <br v-if="currentTodoList">
+        <button v-if="currentTodoList" class="my-2 mx-1 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded focus:outline-none" v-on:click="deleteTodoList_">
+           {{ (!confirmedDeletion ? 'Supprimer la liste ?' : 'Supprimer') }}
+        </button>
+        <button v-if="confirmedDeletion && currentTodoList" class="mx-1 my-2 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded focus:outline-none" v-on:click="cancelDelete">
+          Annuler
+        </button>
+        
+        
+        <br v-if="currentTodoList"/>
         
         <!--<p class="w-64 text-center text-red-600 text-xl " v-else >Sélectionnez une liste de todo</p>-->
       </div>
@@ -54,7 +61,8 @@ export default defineComponent({
   name: 'Home',
   data() {
     return {
-      currentTodoList: null
+      currentTodoList: null,
+      confirmedDeletion: false
     }
   },
   mounted() {
@@ -84,14 +92,21 @@ export default defineComponent({
       if (this.currentTodoList != null && this.$refs.todolistDisplay != null) {
         this.$refs.todolistDisplay.changeFilter('all');
       }
+      this.confirmedDeletion = false;
     },
     deleteTodoList_() {
-      if (this.currentTodoList != null) {
-        this.deleteTodoList({
-          id: this.currentTodoList.id
-        });
-        this.currentTodoList = null;
+      if (this.confirmedDeletion) {
+        if (this.currentTodoList != null) {
+          this.deleteTodoList({
+            id: this.currentTodoList.id
+          });
+          this.currentTodoList = null;
+        }
       }
+      this.confirmedDeletion = !this.confirmedDeletion;
+    },
+    cancelDelete() {
+      this.confirmedDeletion = false;
     }
   },
   computed: {
