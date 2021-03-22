@@ -11,7 +11,7 @@
         <input class="bg-gray-300 focus:bg-white" v-model="inputPassword" id="pass" type="password"/>
       </div>
       <button class=" my-2 bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doRegister">Créer un compte</button>
-      <p class="pb-2"> Vous avez déjà un compte ? <router-link v-if="!loggedOn" to="/login" class="hover:text-blue-500 hover:underline cursor-pointer"> Cliquez ici.</router-link> </p>
+      <p class="pb-2"> Vous avez déjà un compte ? <router-link to="/login" class="hover:text-blue-500 hover:underline cursor-pointer"> Cliquez ici.</router-link> </p>
     </div>
   </div>
 
@@ -38,7 +38,6 @@ export default defineComponent({
     ...mapActions('account', ['register']),
     ...mapActions('todolist', ['load']),
     doRegister() {
-        console.log(this.inputUsername,this.inputPassword)
         this.register(
             {
                 email: this.inputEmail,

@@ -3,13 +3,13 @@
     <h2 class="text-2xl my-2">Page de connexion</h2>
     <div class="flex flex-col items-center rounded-full  border-b-2 border-t-2">
       <div class="z-10">
-        <p>Identifiant:</p>
+        <p>Email:</p>
         <input class="bg-gray-300 focus:bg-white" v-model="inputUsername" id="user"/>
         <p>Mot de Passe:</p>
         <input class="bg-gray-300 focus:bg-white" v-model="inputPassword" id="pass" type="password"/>
       </div>
       <button class=" my-2 bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="doLogin">Se connecter</button>
-      <p class="pb-2"> Vous n'avez pas de compte ? <router-link v-if="!loggedOn" to="/register" class="hover:text-blue-500 hover:underline cursor-pointer"> Cliquez ici pour créer un compte.</router-link> </p>
+      <p class="pb-2"> Vous n'avez pas de compte ? <router-link to="/register" class="hover:text-blue-500 hover:underline cursor-pointer"> Cliquez ici pour créer un compte.</router-link> </p>
     </div>
   </div>
   <h1 v-if="displayLoggedOn">Vous êtes connecté!</h1>
@@ -34,7 +34,6 @@ export default defineComponent({
     ...mapActions('account', ['login']),
     ...mapActions('todolist', ['load']),
     doLogin() {
-        console.log(this.inputUsername,this.inputPassword)
         this.login(
             {
                 email: this.inputUsername,
@@ -53,7 +52,7 @@ export default defineComponent({
                         // Redirection.
                         setTimeout(
                             function() {
-                                router.back();
+                                router.push("/");
                             },
                             1000
                         );
