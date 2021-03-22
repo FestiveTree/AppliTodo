@@ -14,7 +14,7 @@
       <!--<p class="w-64 text-center text-red-600 text-xl " v-else >Sélectionnez une liste de todo</p>-->
     </div>
     <div class="w-screen mr-4">
-    <TodoList v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
+    <TodoList ref="todolistDisplay" v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
     </div>
   </div>
 
@@ -73,6 +73,7 @@ export default defineComponent({
         return;
       }
       this.currentTodoList = todolist;
+      this.$refs.todolistDisplay.changeFilter('all');
     },
     deleteTodoList_() {
       if (this.currentTodoList != null) {
