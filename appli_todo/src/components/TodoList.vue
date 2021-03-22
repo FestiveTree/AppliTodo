@@ -1,6 +1,6 @@
 <template>
 <div class="bg-gray-600 items-center border-4 rounded">
-  <h2 class="text-4xl pb-4 px-4 underline "> {{ name }} : </h2>
+  <h2 class="text-4xl pb-4 pt-4 px-4 underline "> {{ name }} : </h2>
   
   <ul  v-for="todo in getTodos(id,filter)" :key="generateKey(todo)">
     <li class="pl-8 pb-2" style="list-style-type: none"> 

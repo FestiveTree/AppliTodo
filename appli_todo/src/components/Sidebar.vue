@@ -1,7 +1,7 @@
 <template>
 <!-- div for debug -->
 <div >
-  <div class="mt-10">
+  <div class="mt-4 ">
   <ul class="mt-1 text-center" v-for="todolist in getTodoLists" :key="generateKey(todolist)">
     <li style="list-style-type: none"> 
       <SidebarItem v-bind="{id: todolist.id, name: todolist.name}" v-on:click="changeCurrentTodoList(todolist)"/>
@@ -9,7 +9,7 @@
   </ul>
   </div>
   
-  <input class="bg-gray-200 focus:bg-white m-1" type="text" name="newTodoListName" v-model="newTodoListName">
+  <input class="bg-gray-200 focus:bg-white m-1 rounded" type="text" name="newTodoListName" v-model="newTodoListName">
   <button class ="my-1 bg-gray-500 hover:bg-gray-400 text-white font-bold py-1 px-1 border-b-4 border-gray-700 hover:border-gray-500 rounded" v-on:click="addTodoList">Ajouter</button>
 </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
 <!-- div for debug -->
-<div class="bg-gray-900 mx-8">
+<div class="bg-gray-900 mx-8 rounded-md hover:bg-orange-700 cursor-pointer">
   
-  <p>{{ name }} ({{ getTodos(id, "completed").length }}/{{ getTodos(id).length}})</p>
+  <p class="font-medium p-1">{{ name }} ({{ getTodos(id, "completed").length }}/{{ getTodos(id).length}})</p>
   
 </div>
 </template>

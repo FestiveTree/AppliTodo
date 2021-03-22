@@ -1,25 +1,28 @@
 <template>
 
-  <h2 class="text-2xl my-2 text-center">Page principale</h2>
-  
-  <div class="flex ">
-    <div class="w-3/12 mb-2 bg-gray-400 border-t-2 border-r-2 border-l-2 border-b-2 text-center rounded mx-3 flex-inital"  >
-      <h1 class="text-center " v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
-      
-      <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
-      
-      <button class="my-2 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" v-if="currentTodoList" v-on:click="deleteTodoList_">Supprimer la liste</button>
-      <br v-if="currentTodoList">
-      
-      <!--<p class="w-64 text-center text-red-600 text-xl " v-else >Sélectionnez une liste de todo</p>-->
+  <div>
+    <h2 class="text-2xl my-2 text-center">Page principale</h2>
+    
+    <div class="flex" v-if="getterToken !== null">
+      <div class="w-3/12 mb-2 bg-gray-400 border-t-2 border-r-2 border-l-2 border-b-2 text-center rounded mx-3 flex-inital"  >
+        <h1 class="text-center mt-4 font-semibold text-2xl" v-if="getTodoLists != null"> ToDoList ({{ getTodoLists.length }}) </h1>
+        
+        <Sidebar v-on:currentTodoList="changeCurrentTodoList($event.todolist)"/>
+        
+        <button class="my-2 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" v-if="currentTodoList" v-on:click="deleteTodoList_">Supprimer la liste</button>
+        <br v-if="currentTodoList">
+        
+        <!--<p class="w-64 text-center text-red-600 text-xl " v-else >Sélectionnez une liste de todo</p>-->
+      </div>
+      <div class="w-screen mr-4">
+      <TodoList ref="todolistDisplay" v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
+      </div>
     </div>
-    <div class="w-screen mr-4">
-    <TodoList ref="todolistDisplay" v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
-    </div>
-  </div>
 
-  <div v-if="!loggedOn">
-    <h1>Veuillez vous connecter</h1>
+    <div v-if="getterToken === null">
+      <h1 class="text-red-600 font-bold text-xl">Veuillez vous connecter</h1>
+    </div>
+
   </div>
 <!--
   
@@ -88,12 +91,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters('todolist', ['getTodoLists']),
-    ...mapGetters('account', ['getterToken']),
-
-    loggedOn() {
-      return localStorage.getItem('token') !== null;
-    }
-
+    ...mapGetters('account', ['getterToken'])
   },
   components: {
     Sidebar,
