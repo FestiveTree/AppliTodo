@@ -57,6 +57,10 @@ export default defineComponent({
     // inspiration: https://stackoverflow.com/questions/40915436/vuejs-update-parent-data-from-child-component
     changeCurrentTodoList(todolist) {
       this.$emit('currentTodoList', {todolist: todolist});
+      if (todolist == this.currentTodoList) {
+        this.currentTodoList = null;
+        return;
+      }
       this.currentTodoList = todolist;
     }
   },
