@@ -2,7 +2,7 @@
 <!-- div for debug -->
 <div class="flex px-2 bg-black border-gray-700 mx-8 rounded-md hover:bg-orange-700 hover:border-orange-500 cursor-pointer border-b-4 my-1">
   
-  <p class="font-medium p-1">{{ name }} ({{ getTodos(id, "completed").length }}/{{ getTodos(id).length}})</p>
+  <p class="font-medium text-gray-300 p-1">{{ name }} ({{ getTodos(id, "completed").length }}/{{ getTodos(id).length}})</p>
   
 </div>
 </template>

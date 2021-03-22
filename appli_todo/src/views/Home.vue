@@ -19,8 +19,8 @@
         <br v-if="currentTodoList"/>
         
       </div>
-      <div class="w-screen mr-4">
-      <TodoList ref="todolistDisplay" v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
+      <div class="w-screen">
+        <TodoList ref="todolistDisplay" v-if="currentTodoList" v-bind="{id: currentTodoList.id, name: currentTodoList.name}"/>
       </div>
     </div>
 
