@@ -3,7 +3,7 @@
     <router-link  to="/" ><img class="p-1 my-2 bg-gray-400 hover:bg-gray-300 rounded " src="./assets/home.png" width="32" height="32" ></router-link>
     <router-link v-if="!loggedOn" class="p-1 bg-gray-400 my-2  hover:bg-gray-300 rounded " to="/login">Login -></router-link>
     <router-link v-if="!loggedOn" class="p-1 bg-gray-400 my-2  hover:bg-gray-300 rounded " to="/register">Register -></router-link>
-    <a class="p-1 my-2 bg-gray-400 hover:bg-gray-300 rounded " v-on:click="disconnect">Disconnect</a>
+    <a v-if="loggedOn" class="p-1 my-2 bg-gray-400 hover:bg-gray-300 rounded " v-on:click="disconnect">Disconnect</a>
   </div>
   <!-- component matched by the route will render here -->
   <router-view></router-view>

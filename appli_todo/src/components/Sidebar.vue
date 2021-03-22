@@ -4,7 +4,7 @@
   <div class="mt-4 ">
   <ul class="mt-1 text-center" >
     <li style="list-style-type: none" v-for="todolist in getTodoLists" :key="generateKey(todolist)"> 
-      <SidebarItem v-bind="{id: todolist.id, name: todolist.name}" v-on:click="changeCurrentTodoList(todolist)"/>
+      <SidebarItem v-bind:class="{ 'bg-green-700 border-green-500': todolist.id == (currentTodoList != null ? currentTodoList.id : -1) }" v-bind="{id: todolist.id, name: todolist.name}" v-on:click="changeCurrentTodoList(todolist)"/>
     </li>
   </ul>
   </div>
@@ -25,7 +25,8 @@ export default defineComponent({
   name: 'Sidebar',
   data() {
     return {
-      newTodoListName: ''
+      newTodoListName: '',
+      currentTodoList: null
     }
   },
   methods: {
@@ -56,6 +57,7 @@ export default defineComponent({
     // inspiration: https://stackoverflow.com/questions/40915436/vuejs-update-parent-data-from-child-component
     changeCurrentTodoList(todolist) {
       this.$emit('currentTodoList', {todolist: todolist});
+      this.currentTodoList = todolist;
     }
   },
   computed: {
