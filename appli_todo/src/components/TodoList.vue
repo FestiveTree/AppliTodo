@@ -77,7 +77,6 @@ export default defineComponent({
       );
     },
     changeFilter(filter) {
-      console.log(filter);
       this.filter = filter;
     },
     removeTodo(idTodo) {

@@ -1,6 +1,6 @@
 <template>
 
-  <h2 class="text-2xl my-2 text-center">Page de principale</h2>
+  <h2 class="text-2xl my-2 text-center">Page principale</h2>
   
   <div class="flex ">
     <div class="w-3/12 mb-2 bg-gray-400 border-t-2 border-r-2 border-l-2 border-b-2 text-center rounded mx-3 flex-inital"  >
@@ -73,7 +73,9 @@ export default defineComponent({
         return;
       }
       this.currentTodoList = todolist;
-      this.$refs.todolistDisplay.changeFilter('all');
+      if (this.currentTodoList != null && this.$refs.todolistDisplay != null) {
+        this.$refs.todolistDisplay.changeFilter('all');
+      }
     },
     deleteTodoList_() {
       if (this.currentTodoList != null) {
