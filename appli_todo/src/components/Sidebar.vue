@@ -41,7 +41,13 @@ export default defineComponent({
       
       this.createTodoList(
         {
-          name: this.newTodoListName
+          name: this.newTodoListName,
+          callback: (res) => {
+            if (res.status == 200) {
+              const todoList = this.getTodoLists.find((todoList) => todoList.id === res.data.id);
+              this.$emit('currentTodoList', {todolist: todoList});
+            }
+          }
         }
       );
       
