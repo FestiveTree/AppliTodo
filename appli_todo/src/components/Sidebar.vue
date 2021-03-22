@@ -2,8 +2,8 @@
 <!-- div for debug -->
 <div >
   <div class="mt-4 ">
-  <ul class="mt-1 text-center" v-for="todolist in getTodoLists" :key="generateKey(todolist)">
-    <li style="list-style-type: none"> 
+  <ul class="mt-1 text-center" >
+    <li style="list-style-type: none" v-for="todolist in getTodoLists" :key="generateKey(todolist)"> 
       <SidebarItem v-bind="{id: todolist.id, name: todolist.name}" v-on:click="changeCurrentTodoList(todolist)"/>
     </li>
   </ul>
