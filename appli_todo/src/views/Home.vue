@@ -62,9 +62,14 @@ export default defineComponent({
       this.load();
     }
   },
+
+  created() {
+    this.tryLoadTokenFromMemory();
+  },
+
   methods: {
     ...mapActions('todolist', ['load', 'deleteTodoList']),
-    ...mapActions('account', ['login', 'getUser']),
+    ...mapActions('account', ['login', 'getUser', 'tryLoadTokenFromMemory']),
     generateKey(todolist) {
       return '$' + todolist.id + 
         '$' + todolist.name + 

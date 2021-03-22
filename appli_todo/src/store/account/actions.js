@@ -59,6 +59,10 @@ export function getUser({ commit }, data) {
 
 }
 
+export function tryLoadTokenFromMemory({ commit }) {
+    commit("tryLoadTokenFromMemory");
+}
+
 
 export function disconnect({ commit }) {
     commit("clearToken");
