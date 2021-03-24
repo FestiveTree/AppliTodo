@@ -22,10 +22,15 @@ import router from '../router';
 
 export default defineComponent({
   name: 'Login',
+  
+  created() {
+    document.title = 'Connexion';
+  },
+  
   data() {
           return {
-              inputUsername: 'TestAPI33t6ws@monmail.fr.nf',
-              inputPassword: 'Toto1234##',
+              inputUsername: '',
+              inputPassword: '',
               displayLoggedOn: false,
           }
   },

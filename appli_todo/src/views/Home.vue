@@ -55,6 +55,7 @@ export default defineComponent({
 
   created() {
     this.tryLoadTokenFromMemory();
+    document.title = 'ToDo List';
   },
 
   methods: {

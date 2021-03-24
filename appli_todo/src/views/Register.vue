@@ -25,6 +25,11 @@ import router from '../router';
 
 export default defineComponent({
   name: 'Register',
+
+  created() {
+    document.title = 'Inscription';
+  },
+
   data() {
           return {
               inputUsername: '',
